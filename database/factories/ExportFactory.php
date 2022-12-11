@@ -18,11 +18,14 @@ class ExportFactory extends Factory
     public function definition()
     {
         return [
-            'material_price' =>fake()->numberBetween(1,100),
-            'wages' =>fake()->numberBetween(1,100),
-            'details' => fake()->text(20),
-            'opration_date' => fake()->dateTimeBetween('-1 days','+1 days'),
-            'customer_id'=>1
+            'material_price' => $this->faker->numberBetween(1, 100),
+            'wages' => $this->faker->numberBetween(1, 100),
+            'details' => $this->faker->text(20),
+            'opration_date' => $this->faker->dateTimeBetween('-1 days', '+1 days'),
+            'customer_id' => function () {
+                $customer = Customer::inRandomOrder()->first();
+                return $customer->id;
+            },
         ];
     }
 }
